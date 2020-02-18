@@ -7,14 +7,6 @@ class StudentsController < ApplicationController
   private
 
   def serializer_options
-    {
-      except: [:created_at, :updated_at],
-      include: {
-        :groups => {
-          include: :students,
-          :methods => [:activity_name, :student_ids]
-        }
-      }
-    }
+    { except: [:created_at, :updated_at] }
   end
 end
