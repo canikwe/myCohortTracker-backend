@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PairsControllerTest < ActionDispatch::IntegrationTest
+class StudentGroupTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

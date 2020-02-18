@@ -7,6 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Student.destroy_all
+Group.destroy_all
+StudentGroup.destroy_all
 
 cohort = Cohort.find_or_create_by(batch: 'dc-web-102819', name: '|dreams|', batch_id: 1157, current_mod: 6)
 
@@ -14,12 +16,24 @@ cohort = Cohort.find_or_create_by(batch: 'dc-web-102819', name: '|dreams|', batc
   Student.find_or_create_by(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, cohort_id: cohort.id)
 end
 
-projects = ['SWAPI', 'Toy Tale', 'Hogwarts', 'Task Lister', 'OO Pets']
+# projects = ['SWAPI', 'Toy Tale', 'Hogwarts', 'Task Lister', 'OO Pets']
 
-10.times do
-  s1 = Student.all.sample
-  s2 = Student.all.sample
-  proj = projects.sample
-  Pair.find_or_create_by(s1_id: s1.id, s2_id: s2.id, mod: 1, name: proj, category: 'lab')
-  Pair.find_or_create_by(s1_id: s2.id, s2_id: s1.id, mod: 1, name: proj, category: 'lab')
+a1 = Activity.find_or_create_by(name: 'SWAPI', category: 'Lab', mod: 1, cohort_id: cohort.id)
+a2 = Activity.find_or_create_by(name: 'Task Lister', category: 'Lab', mod: 2, cohort_id: cohort.id)
+a3 = Activity.find_or_create_by(name: 'Toy Tale', category: 'Lab', mod: 3, cohort_id: cohort.id)
+a4 = Activity.find_or_create_by(name: 'Hogwarts', category: 'Lab', mod: 4, cohort_id: cohort.id)
+
+4.times do
+  g1 = Group.create(activity_id: a1.id)
+  g2 = Group.create(activity_id: a2.id)
+  g3 = Group.create(activity_id: a3.id)
+  g4 = Group.create(activity_id: a4.id)
+
+  [2, 3].sample.times do
+    StudentGroup.find_or_create_by(student_id: Student.all.sample.id, group_id: g1.id)
+    StudentGroup.find_or_create_by(student_id: Student.all.sample.id, group_id: g2.id)
+    StudentGroup.find_or_create_by(student_id: Student.all.sample.id, group_id: g3.id)
+    StudentGroup.find_or_create_by(student_id: Student.all.sample.id, group_id: g4.id)
+  end
+
 end

@@ -1,4 +1,5 @@
 class Student < ApplicationRecord
   belongs_to :cohort
-  has_many :pairs, class_name: :Pair, foreign_key: 's1_id'
+  has_many :student_groups
+  has_many :groups, through: :student_groups
 end

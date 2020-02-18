@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_16_144041) do
+ActiveRecord::Schema.define(version: 2020_02_18_193714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
+    t.integer "mod"
+    t.integer "cohort_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "cohorts", force: :cascade do |t|
     t.string "batch"
@@ -24,13 +33,17 @@ ActiveRecord::Schema.define(version: 2020_02_16_144041) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pairs", force: :cascade do |t|
-    t.integer "s1_id"
-    t.integer "s2_id"
-    t.integer "mod"
-    t.string "name"
+  create_table "groups", force: :cascade do |t|
+    t.string "notes"
     t.boolean "avoid"
-    t.string "category"
+    t.integer "activity_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "student_groups", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

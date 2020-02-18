@@ -1,12 +1,20 @@
 class StudentsController < ApplicationController
 
   def index
-    render json: Student.all.to_json(serializer_options)
+    render json: Student.all.as_json(serializer_options)
   end
 
   private
 
   def serializer_options
-    {include: {:pairs => {except: [:created_at, :updated_at]}}, except: [:created_at, :updated_at]}
+    {
+      except: [:created_at, :updated_at],
+      include: {
+        :groups => {
+          include: :students,
+          :methods => [:activity_name, :student_ids]
+        }
+      }
+    }
   end
 end
