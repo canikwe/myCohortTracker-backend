@@ -19,21 +19,25 @@ end
 # projects = ['SWAPI', 'Toy Tale', 'Hogwarts', 'Task Lister', 'OO Pets']
 
 a1 = Activity.find_or_create_by(name: 'SWAPI', category: 'Lab', mod: 1, cohort_id: cohort.id)
-a2 = Activity.find_or_create_by(name: 'Task Lister', category: 'Lab', mod: 2, cohort_id: cohort.id)
+a2 = Activity.find_or_create_by(name: 'Mod 1 Project', category: 'Project', mod: 1, cohort_id: cohort.id)
+# a2 = Activity.find_or_create_by(name: 'Task Lister', category: 'Lab', mod: 2, cohort_id: cohort.id)
 a3 = Activity.find_or_create_by(name: 'Toy Tale', category: 'Lab', mod: 3, cohort_id: cohort.id)
-a4 = Activity.find_or_create_by(name: 'Hogwarts', category: 'Lab', mod: 4, cohort_id: cohort.id)
+a4 = Activity.find_or_create_by(name: 'Mod 3 Project', category: 'Project', mod: 3, cohort_id: cohort.id)
+a5 = Activity.find_or_create_by(name: 'Hogwarts', category: 'Lab', mod: 4, cohort_id: cohort.id)
 
 4.times do
   g1 = Group.create(activity_id: a1.id)
   g2 = Group.create(activity_id: a2.id)
   g3 = Group.create(activity_id: a3.id)
   g4 = Group.create(activity_id: a4.id)
+  g5 = Group.create(activity_id: a5.id)
 
   [2, 3].sample.times do
     StudentGroup.find_or_create_by(student_id: Student.all.sample.id, group_id: g1.id)
     StudentGroup.find_or_create_by(student_id: Student.all.sample.id, group_id: g2.id)
     StudentGroup.find_or_create_by(student_id: Student.all.sample.id, group_id: g3.id)
     StudentGroup.find_or_create_by(student_id: Student.all.sample.id, group_id: g4.id)
+    StudentGroup.find_or_create_by(student_id: Student.all.sample.id, group_id: g5.id)
   end
 
 end
