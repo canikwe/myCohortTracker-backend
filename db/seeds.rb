@@ -18,12 +18,12 @@ end
 
 # projects = ['SWAPI', 'Toy Tale', 'Hogwarts', 'Task Lister', 'OO Pets']
 
-a1 = Activity.find_or_create_by(name: 'SWAPI', category: 'Lab', mod: 1, cohort_id: cohort.id)
-a2 = Activity.find_or_create_by(name: 'Mod 1 Project', category: 'Project', mod: 1, cohort_id: cohort.id)
-# a2 = Activity.find_or_create_by(name: 'Task Lister', category: 'Lab', mod: 2, cohort_id: cohort.id)
-a3 = Activity.find_or_create_by(name: 'Toy Tale', category: 'Lab', mod: 3, cohort_id: cohort.id)
-a4 = Activity.find_or_create_by(name: 'Mod 3 Project', category: 'Project', mod: 3, cohort_id: cohort.id)
-a5 = Activity.find_or_create_by(name: 'Hogwarts', category: 'Lab', mod: 4, cohort_id: cohort.id)
+a1 = Activity.find_or_create_by(name: 'SWAPI', category: 'Lab', mod: 1)
+a2 = Activity.find_or_create_by(name: 'Mod 1 Project', category: 'Project', mod: 1)
+# a2 = Activity.find_or_create_by(name: 'Task Lister', category: 'Lab', mod: 2)
+a3 = Activity.find_or_create_by(name: 'Toy Tale', category: 'Lab', mod: 3)
+a4 = Activity.find_or_create_by(name: 'Mod 3 Project', category: 'Project', mod: 3)
+a5 = Activity.find_or_create_by(name: 'Hogwarts', category: 'Lab', mod: 4)
 
 4.times do
   g1 = Group.create(activity_id: a1.id)

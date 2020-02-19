@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # resources :cohort_activities
+  resources :activities, only: [:index, :create]
   resources :groups, only: [:index, :create]
   resources :students, only: [:index]
   resources :cohorts, only: [:index, :show]

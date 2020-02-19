@@ -4,7 +4,6 @@ class CreateActivities < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :category
       t.integer :mod
-      t.integer :cohort_id
 
       t.timestamps
     end

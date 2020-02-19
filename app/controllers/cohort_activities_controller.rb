@@ -1,0 +1,3 @@
+class CohortActivitiesController < ApplicationController
+
+end
