@@ -8,8 +8,8 @@ class GroupsController < ApplicationController
     # byebug
     activity = Activity.find_or_create_by(activity_params)
     group = Group.create!(activity_id: activity.id)
-    group_params[:student_ids].each do |s|
-      StudentGroup.create!(student_id: s, group_id: group.id)
+    group_params[:student_ids].each do |id|
+      StudentGroup.find_or_create_by(student_id: id, group_id: group.id)
     end
 
     render json: group.to_json(group_serializer)
