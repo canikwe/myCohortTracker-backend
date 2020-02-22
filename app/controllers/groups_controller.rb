@@ -33,10 +33,6 @@ class GroupsController < ApplicationController
     params.require(:activity).permit(:id, :name, :mod, :category)
   end
 
-  def student_group_params
-    params.require(:student_group).permit(:student_ids => [])
-  end
-
   def group_serializer
     {
       except: [:created_at, :updated_at, :activity_id],

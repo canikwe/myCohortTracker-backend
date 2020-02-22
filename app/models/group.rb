@@ -7,7 +7,4 @@ class Group < ApplicationRecord
     self.activity.name
   end
 
-  def student_ids
-    self.student_groups.map {|sg| sg.student_id}
-  end
 end
