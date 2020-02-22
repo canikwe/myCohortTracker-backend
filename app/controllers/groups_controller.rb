@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :get_group, only: [:update, :delete]
+  before_action :get_group, only: [:update, :destroy]
 
   def index
     render json: Group.all.to_json(group_serializer)
@@ -15,6 +15,13 @@ class GroupsController < ApplicationController
     activity = Activity.find_or_create_by(activity_params)
     group = Group.create!(activity_id: activity.id)
     group.update(group_params)
+
+    render json: group.to_json(group_serializer)
+  end
+
+  def destroy
+    group = @group
+    @group.destroy
 
     render json: group.to_json(group_serializer)
   end
