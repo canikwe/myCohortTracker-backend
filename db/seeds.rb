@@ -17,10 +17,14 @@ cohort = Cohort.find_or_create_by(batch: 'dc-web-102819', name: '|dreams|', batc
 end
 
 # projects = ['SWAPI', 'Toy Tale', 'Hogwarts', 'Task Lister', 'OO Pets']
+# 102819
+# ["Week 1 Table Groups", "OO Person 👯‍♀️ Pairing Lab", "SWAPI 👯‍♀️ Lab", "Task Lister", "OO Pets & Banking 👯‍♀️ Lab", "Sinatra 🎩🎙CRUD & RESTful Routes 👯‍♀️", "Dog CEO", "Hogwarts 👯‍♀️🧪", "Toy Tale 🧸", "Kickstarter 👯‍♀️ Lab", "🎩🎙 Pairing Activity", "Week 2 Table Groups", "Pairing: Has Many Through", "Pokemon Teams 👯‍♀️", "Mod 2 Week 2", "Mod 3 Project Groups", "Rails 🛤 CRUD App 👯‍♀️", "Mod 4 Project Groups", "Module 1 Project Groups", "Week 2 Week 1 Table Groups", "Allergen Lab 🤧", "App Roulette", "Mod 2 Project Groups"]
+# 012720
+# ["Sinatra ActiveRecord CRUD", "Deploy on Day 1", "OO Person", "Mod-1 week 1 table groups", "OO My Pets", "BYO Sinatra", "Project Euler", "Mod 2 Week 2 Table Groups", "Kick Starter", "AirBnB", "Mod-1 week 2 table groups", "BYO Many-to-Many", "Mid-Mod One Table Groups", "Mod 2 Week 1 Table Groups", "Mod-1-Final-Project", "Flatiron B&B Pair Lab", "Star Wars API"]
 
 a1 = Activity.find_or_create_by(name: 'SWAPI', category: 'Lab', mod: 1)
 a2 = Activity.find_or_create_by(name: 'Mod 1 Project', category: 'Project', mod: 1)
-# a2 = Activity.find_or_create_by(name: 'Task Lister', category: 'Lab', mod: 2)
+# a2 = Activity.find_or_create_by(name: 'Task Lister', category: 'Lab', mod: 3)
 a3 = Activity.find_or_create_by(name: 'Toy Tale', category: 'Lab', mod: 3)
 a4 = Activity.find_or_create_by(name: 'Mod 3 Project', category: 'Project', mod: 3)
 a5 = Activity.find_or_create_by(name: 'Hogwarts', category: 'Lab', mod: 4)
