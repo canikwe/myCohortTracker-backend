@@ -4,7 +4,16 @@ class ActivitiesController < ApplicationController
     render json: Activity.all.to_json(activity_serializer)
   end
 
+  def create
+    activity = Activity.create!(activity_params)
+    render json: activity.to_json(activity_serializer)
+  end
+
   private
+
+  def activity_params
+    params.require(:activity).permit(:name, :mod, :category)
+  end
 
   def activity_serializer
     {
