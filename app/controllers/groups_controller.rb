@@ -31,7 +31,7 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.require(:group).permit(:avoid, :notes, :id, :activity_id, :student_ids => [])
+    params.require(:group).permit(:avoid, :notes, :id, :activity_id, :activity_date, :student_ids => [])
   end
 
   def group_serializer
