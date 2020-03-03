@@ -1,7 +1,8 @@
 class CohortsController < ApplicationController
 
   def index
-    @cohorts = Cohorts.all
+    # hard coded the first and only cohort for now
+    render json: Cohort.first.to_json(serializer_options)
   end
 
   def show
@@ -12,5 +13,10 @@ class CohortsController < ApplicationController
 
   def get_cohort
     Cohort.find(params[:id])
+  end
+
+  def serializer_options
+    { :except => [:created_at, :updated_at] }
+
   end
 end
