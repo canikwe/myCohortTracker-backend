@@ -39,11 +39,11 @@ date5 = Date.new(2019, 02, 28)
 
 
 4.times do
-  g1 = Group.create(activity_id: a1.id, notes: '', avoid: false, activity_date: date1)
-  g2 = Group.create(activity_id: a2.id, notes: '', avoid: true, activity_date: date2)
-  g3 = Group.create(activity_id: a3.id, notes: '', avoid: false, activity_date: date3)
-  g4 = Group.create(activity_id: a4.id, notes: '', avoid: true, activity_date: date4)
-  g5 = Group.create(activity_id: a5.id, notes: '', avoid: false, activity_date: date5)
+  g1 = Group.create(activity_id: a1.id, notes: '', avoid: false, activity_date: date1, cohort_id: cohort.id)
+  g2 = Group.create(activity_id: a2.id, notes: '', avoid: true, activity_date: date2, cohort_id: cohort.id)
+  g3 = Group.create(activity_id: a3.id, notes: '', avoid: false, activity_date: date3, cohort_id: cohort.id)
+  g4 = Group.create(activity_id: a4.id, notes: '', avoid: true, activity_date: date4, cohort_id: cohort.id)
+  g5 = Group.create(activity_id: a5.id, notes: '', avoid: false, activity_date: date5, cohort_id: cohort.id)
 
   [2, 3].sample.times do
     StudentGroup.find_or_create_by(student_id: Student.all.sample.id, group_id: g1.id)

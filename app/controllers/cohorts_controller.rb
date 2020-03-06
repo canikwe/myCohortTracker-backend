@@ -7,14 +7,16 @@ class CohortsController < ApplicationController
 
   def show
     cohort = Cohort.find_by(batch_id: params[:id])
-    render json: cohort.to_json(serializer_options)
+
+    render json: {cohort: cohort.as_json(serializer_options), students: cohort.students.as_json(serializer_options), groups: cohort.groups.as_json(group_serializer)}
   end
 
   def create
     cohort = Cohort.create(cohort_params)
-    cohort.students.build(cohort_student_params[:students])
-    cohort.save
-    render json: cohort.to_json(serializer_options)
+    cohort.students.create(cohort_student_params[:students])
+    # cohort.save
+    # render json: cohort.to_json(serializer_options)
+    render json: {cohort: cohort.as_json(serializer_options), students: cohort.students.as_json(serializer_options), groups: cohort.groups.as_json(group_serializer)}
   end
 
   private
@@ -32,6 +34,14 @@ class CohortsController < ApplicationController
   end
 
   def serializer_options
-    { :except => [:created_at, :updated_at], :include => {:students => {:except => [:created_at, :updated_at]}} }
+    { :except => [:created_at, :updated_at] }
+  end
+
+    def group_serializer
+    {
+      except: [:created_at, :updated_at, :activity_id],
+      include: [{:activity => {except: [:created_at, :updated_at]}}],
+      methods: [:student_ids]
+    }
   end
 end
