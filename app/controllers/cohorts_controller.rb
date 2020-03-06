@@ -1,3 +1,4 @@
+
 class CohortsController < ApplicationController
 
   def index
@@ -12,10 +13,19 @@ class CohortsController < ApplicationController
   end
 
   def create
+  
+    byebug
+
+
+    # IO.copy_stream(download, 'test.csv')
+
+    # CSV.new(file).each do |row| 
+    #   puts row
+    # end
+
     cohort = Cohort.create(cohort_params)
     cohort.students.create(cohort_student_params[:students])
-    # cohort.save
-    # render json: cohort.to_json(serializer_options)
+
     render json: {cohort: cohort.as_json(serializer_options), students: cohort.students.as_json(serializer_options), groups: cohort.groups.as_json(group_serializer)}
   end
 
