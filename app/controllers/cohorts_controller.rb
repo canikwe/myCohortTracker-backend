@@ -6,7 +6,8 @@ class CohortsController < ApplicationController
   end
 
   def show
-    render json: get_cohort
+    cohort = Cohort.find_by(batch_id: params[:id])
+    render json: cohort.to_json(serializer_options)
   end
 
   def create
@@ -27,7 +28,7 @@ class CohortsController < ApplicationController
   end
 
   def get_cohort
-    Cohort.find(params[:id])
+    @cohort = Cohort.find(params[:id])
   end
 
   def serializer_options
