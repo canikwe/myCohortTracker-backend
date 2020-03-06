@@ -5,7 +5,7 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    activity = Activity.create!(activity_params)
+    activity = Activity.find_or_create_by(activity_params)
     render json: activity.to_json(activity_serializer)
   end
 

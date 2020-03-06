@@ -2,7 +2,7 @@ class CohortsController < ApplicationController
 
   def index
     # hard coded the first and only cohort for now
-    render json: Cohort.first.to_json(serializer_options)
+    render json: Cohort.all.to_json(serializer_options)
   end
 
   def show
