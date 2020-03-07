@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_143408) do
     t.string "name"
     t.string "category"
     t.integer "mod"
+    t.integer "cohort_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

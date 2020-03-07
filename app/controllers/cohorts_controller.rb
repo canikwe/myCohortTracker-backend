@@ -2,7 +2,6 @@
 class CohortsController < ApplicationController
 
   def index
-    # hard coded the first and only cohort for now
     render json: Cohort.all.to_json(serializer_options)
   end
 
@@ -13,18 +12,23 @@ class CohortsController < ApplicationController
   end
 
   def create
-  
-    byebug
-
-
-    # IO.copy_stream(download, 'test.csv')
-
-    # CSV.new(file).each do |row| 
-    #   puts row
-    # end
-
     cohort = Cohort.create(cohort_params)
     cohort.students.create(cohort_student_params[:students])
+
+    render json: {cohort: cohort.as_json(serializer_options), students: cohort.students.as_json(serializer_options), groups: cohort.groups.as_json(group_serializer)}
+  end
+
+  def csv_upload
+    cohort_params = JSON.parse(params[:cohort])
+    cohort = Cohort.create(cohort_params)
+
+    csv = params["csv"].tempfile
+    students = []
+    CSV.foreach(csv, headers: true) do |r|
+      row = r.to_h
+      students << {first_name: row['first_name'], last_name: row['last_name']}
+    end
+    cohort.students.create(students)
 
     render json: {cohort: cohort.as_json(serializer_options), students: cohort.students.as_json(serializer_options), groups: cohort.groups.as_json(group_serializer)}
   end
@@ -36,7 +40,7 @@ class CohortsController < ApplicationController
   end
 
   def cohort_student_params
-  params.require(:cohort).permit(:students => [:first_name, :last_name])
+    params.require(:cohort).permit(:students => [:first_name, :last_name])
   end
 
   def get_cohort
