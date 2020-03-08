@@ -1,5 +1,5 @@
 class AuthController < ApplicationController
-  # skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized?, only: [:create]
 
   def create
     instructor = Instructor.find_by(name: login_params[:name])
