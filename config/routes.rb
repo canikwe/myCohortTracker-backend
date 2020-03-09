@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :instructors, only: [:create]
+  resources :users, only: [:create]
   # resources :cohort_activities
   resources :activities, only: [:index, :create]
   resources :groups, except: [:new, :edit, :show]

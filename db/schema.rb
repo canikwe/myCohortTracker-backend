@@ -50,13 +50,6 @@ ActiveRecord::Schema.define(version: 2020_03_08_153556) do
     t.integer "cohort_id"
   end
 
-  create_table "instructors", force: :cascade do |t|
-    t.string "name"
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "student_groups", force: :cascade do |t|
     t.integer "student_id"
     t.integer "group_id"
@@ -69,6 +62,13 @@ ActiveRecord::Schema.define(version: 2020_03_08_153556) do
     t.string "last_name"
     t.string "avatar"
     t.integer "cohort_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

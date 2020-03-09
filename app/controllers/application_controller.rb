@@ -21,15 +21,15 @@ class ApplicationController < ActionController::API
     # JWT.decode(token, 'my_s3crt')[0]
   end
 
-  def current_instructor
+  def current_user
     if decoded_token
-      instructor_id = decoded_token[0]['instructor_id']
-      @instructor = Instructor.find(instructor_id)
+      user_id = decoded_token[0]['user_id']
+      @user = User.find(user_id)
     end
   end
 
   def logged_in?
-    !!current_instructor
+    !!current_user
   end
 
   def authorized?
