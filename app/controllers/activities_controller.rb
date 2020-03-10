@@ -6,7 +6,7 @@ class ActivitiesController < ApplicationController
 
   def create
     activity = Activity.find_or_create_by(activity_params)
-    render json: activity.to_json(activity_serializer), status: :create
+    render json: activity.to_json(activity_serializer), status: :created
   end
 
   private
