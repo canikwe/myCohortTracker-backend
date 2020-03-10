@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   before_action :authorized?
 
   def encode_token(payload)
-    JWT.encode(payload, Rails.application.credentials.secret_key_base)
+    JWT.encode(payload, secret_key_base)
   end
 
   def auth_header
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
     if auth_header
       token = auth_header.split(' ')[1]
       begin
-        JWT.decode(token, Rails.application.credentials.secret_key_base, true, algorithm: 'HS256')
+        JWT.decode(token, secret_key_base, true, algorithm: 'HS256')
       rescue JWT::DecodeError
         nil
       end
@@ -34,5 +34,12 @@ class ApplicationController < ActionController::API
 
   def authorized?
     render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+  end
+
+  def secret_key_base
+    if Rails.env == 'development' || Rails.env == 'test'
+      Rails.application.credentials.secret_key_base
+    else
+      ENV['SECRET_KEY_BASE']
   end
 end
