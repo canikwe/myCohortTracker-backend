@@ -41,5 +41,6 @@ class ApplicationController < ActionController::API
       Rails.application.credentials.secret_key_base
     else
       ENV['SECRET_KEY_BASE']
+    end
   end
 end
