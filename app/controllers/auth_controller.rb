@@ -14,7 +14,7 @@ class AuthController < ApplicationController
   end
 
   def token_login
-    render json: {:status => :accepted}
+    render json: {:status => :accepted}, status: :accepted
   end
 
   private

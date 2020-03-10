@@ -2,27 +2,27 @@ class GroupsController < ApplicationController
   before_action :get_group, only: [:update, :destroy]
 
   def index
-    render json: Group.all.to_json(group_serializer)
+    render json: Group.all.to_json(group_serializer), status: :ok
   end
 
   def update
     @group.update(group_params)
     
-    render json: @group.to_json(group_serializer)
+    render json: @group.to_json(group_serializer), status: :ok
   end
 
   def create
 
     group = Group.create!(group_params)
 
-    render json: group.to_json(group_serializer)
+    render json: group.to_json(group_serializer), status: :created
   end
 
   def destroy
     group = @group
     @group.destroy
 
-    render json: group.to_json(group_serializer)
+    render json: group.to_json(group_serializer), status: :ok
   end
 
   private

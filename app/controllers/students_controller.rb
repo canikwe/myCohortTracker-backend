@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
 
   def index
-    render json: Student.all.as_json(serializer_options)
+    render json: Student.all.as_json(serializer_options), status: :ok
   end
 
   private
