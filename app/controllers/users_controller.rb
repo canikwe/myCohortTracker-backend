@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     user = User.create(user_params)
     if user.valid?
       token = encode_token({ user_id: user.id })
-      render json: {user: user.as_json(serializer_options), jwt: token}, status: :created
+      render json: {user: UserSerializer.new(user).as_json, jwt: token}, status: :created
     else
       render json: {error: 'failed to create user'}, status: :not_acceptable
     end
@@ -17,7 +17,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :password)
   end
 
-  def serializer_options
-    {except: [:created_at, :updated_at, :password_digest]}
-  end
 end
