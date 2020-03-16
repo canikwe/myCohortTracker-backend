@@ -1,12 +1,12 @@
 class ActivitiesController < ApplicationController
 
   def index
-    render json: Activity.all.to_json(activity_serializer), status: :ok
+    render json: ActivitySerializer.new(Activity.all).to_json, status: :ok
   end
 
   def create
     activity = Activity.find_or_create_by(activity_params)
-    render json: activity.to_json(activity_serializer), status: :created
+    render json: ActivitySerializer.new(activity).to_json, status: :created
   end
 
   private
@@ -15,9 +15,4 @@ class ActivitiesController < ApplicationController
     params.require(:activity).permit(:name, :mod, :category)
   end
 
-  def activity_serializer
-    {
-      except: [:created_at, :updated_at]
-    }
-  end
 end
