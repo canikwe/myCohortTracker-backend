@@ -3,20 +3,20 @@ class CohortsController < ApplicationController
   before_action :get_cohort, only: [:update]
 
   def index
-    render json: Cohort.all.to_json(serializer_options), status: :ok
+    render json: ApplicationSerializer.new(Cohort.all).to_json, status: :ok
   end
 
   def show
     cohort = Cohort.find_by(batch_id: params[:id])
 
-    render json: {cohort: cohort.as_json(serializer_options), students: cohort.students.as_json(serializer_options), groups: cohort.groups.as_json(group_serializer)}, status: :ok
+    render json: {cohort: ApplicationSerializer.new(cohort).as_json, students: ApplicationSerializer.new(cohort.students).as_json, groups: GroupSerializer.new(cohort.groups).as_json}, status: :ok
   end
 
   def create
     cohort = Cohort.create(cohort_params)
     cohort.students.create(cohort_student_params[:students])
 
-    render json: {cohort: cohort.as_json(serializer_options), students: cohort.students.as_json(serializer_options)}, status: :ok
+    render json: {cohort: ApplicationSerializer.new(cohort).as_json, students: ApplicationSerializer.new(cohort.students).as_json}, status: :ok
   end
 
   def update
@@ -36,7 +36,7 @@ class CohortsController < ApplicationController
 
     @cohort.student_ids = student_ids
     
-    render json: {cohort: @cohort.as_json(serializer_options), students: @cohort.students.as_json(serializer_options), groups: @cohort.groups.as_json(group_serializer)}, status: :ok
+    render json: {cohort: ApplicationSerializer.new(@cohort).as_json, students: ApplicationSerializer.new(@cohort.students).as_json, groups: GroupSerializer.new(@cohort.groups).as_json}, status: :ok
   end
 
   def csv_upload
@@ -49,7 +49,7 @@ class CohortsController < ApplicationController
       students << {first_name: row['first_name'], last_name: row['last_name']}
     end
     cohort.students.create(students)
-    render json: {cohort: cohort.as_json(serializer_options), students: cohort.students.as_json(serializer_options)}, status: :ok
+    render json: {cohort: ApplicationSerializer.new(cohort).as_json, students: ApplicationSerializer.new(cohort.students).as_json}, status: :ok
   end
 
   private
@@ -66,15 +66,4 @@ class CohortsController < ApplicationController
     @cohort = Cohort.find(params[:id])
   end
 
-  def serializer_options
-    { :except => [:created_at, :updated_at] }
-  end
-
-    def group_serializer
-    {
-      except: [:created_at, :updated_at, :activity_id],
-      include: [{:activity => {except: [:created_at, :updated_at]}}],
-      methods: [:student_ids]
-    }
-  end
 end
