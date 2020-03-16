@@ -1,12 +1,12 @@
 class ActivitiesController < ApplicationController
 
   def index
-    render json: ActivitySerializer.new(Activity.all).to_json, status: :ok
+    render json: ApplicationSerializer.new(Activity.all).to_json, status: :ok
   end
 
   def create
     activity = Activity.find_or_create_by(activity_params)
-    render json: ActivitySerializer.new(activity).to_json, status: :created
+    render json: ApplicationSerializer.new(activity).to_json, status: :created
   end
 
   private

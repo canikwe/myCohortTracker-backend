@@ -10,12 +10,12 @@ class ApplicationSerializer < ApplicationController
     }
   end
 
-  def to_serialize_json(options)
-    @serialize_object.to_json(options)
+  def to_json
+    @serialize_object.to_json(serializer_options)
   end
 
-  def as_serialize_json(options)
-    @serialize_object.as_json(options)
+  def as_json
+    @serialize_object.as_json(serializer_options)
   end
 
 end
