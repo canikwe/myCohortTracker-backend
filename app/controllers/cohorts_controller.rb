@@ -13,42 +13,54 @@ class CohortsController < ApplicationController
 
   def create
     cohort = Cohort.create(cohort_params)
-    cohort.students.create(cohort_student_params[:students])
+    if cohort.valid?
+      cohort.students.create(cohort_student_params[:students])
 
-    render json: {cohort: ApplicationSerializer.new(cohort).as_json, students: ApplicationSerializer.new(cohort.students).as_json, compliment: compliment_user}, status: :ok
+      render json: {cohort: ApplicationSerializer.new(cohort).as_json, students: ApplicationSerializer.new(cohort.students).as_json, compliment: compliment_user}, status: :ok
+    else
+      render json: {message: cohort.errors.full_messages.as_json}, status: :not_acceptable
+    end
   end
 
   def update
-    @cohort.update(cohort_params)
     
-    student_ids = cohort_student_params[:students].map do |s_params|
-      
-      if s_params[:id]
-        student = Student.find(s_params[:id])
-        student.update(s_params)
-        s_params[:id]
-      else
-        student = @cohort.students.create(s_params)
-        student.id
+    if @cohort.update(cohort_params)
+      student_ids = cohort_student_params[:students].map do |s_params|
+        
+        if s_params[:id]
+          student = Student.find(s_params[:id])
+          student.update(s_params)
+          s_params[:id]
+        else
+          student = @cohort.students.create(s_params)
+          student.id
+        end
       end
-    end
 
-    @cohort.student_ids = student_ids
-    
-    render json: {cohort: ApplicationSerializer.new(@cohort).as_json, students: ApplicationSerializer.new(@cohort.students).as_json, groups: GroupSerializer.new(@cohort.groups).as_json, compliment: compliment_user}, status: :ok
+      @cohort.student_ids = student_ids
+      
+      render json: {cohort: ApplicationSerializer.new(@cohort).as_json, students: ApplicationSerializer.new(@cohort.students).as_json, groups: GroupSerializer.new(@cohort.groups).as_json, compliment: compliment_user}, status: :ok
+    else
+      render json: {message: @cohort.errors.full_messages.as_json}, status: :not_acceptable
+    end
   end
 
   def csv_upload
     cohort_params = JSON.parse(params[:cohort])
     cohort = Cohort.create(cohort_params)
-    csv = params["csv"].tempfile
-    students = []
-    CSV.foreach(csv, headers: true) do |r|
-      row = r.to_h
-      students << {first_name: row['first_name'], last_name: row['last_name']}
+
+    if cohort.valid?
+      csv = params["csv"].tempfile
+      students = []
+      CSV.foreach(csv, headers: true) do |r|
+        row = r.to_h
+        students << {first_name: row['first_name'], last_name: row['last_name']}
+      end
+      cohort.students.create(students)
+      render json: {cohort: ApplicationSerializer.new(cohort).as_json, students: ApplicationSerializer.new(cohort.students).as_json}, status: :ok
+    else
+      render json: {message: cohort.errors.full_messages.as_json}, status: :not_acceptable
     end
-    cohort.students.create(students)
-    render json: {cohort: ApplicationSerializer.new(cohort).as_json, students: ApplicationSerializer.new(cohort.students).as_json}, status: :ok
   end
 
   private
