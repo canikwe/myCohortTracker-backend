@@ -16,7 +16,7 @@ class CohortsController < ApplicationController
     cohort = Cohort.create(cohort_params)
     cohort.students.create(cohort_student_params[:students])
 
-    render json: {cohort: cohort.as_json(serializer_options), students: cohort.students.as_json(serializer_options)}, status: :ok
+    render json: {cohort: cohort.as_json(serializer_options), students: cohort.students.as_json(serializer_options), compliment: compliment_user}, status: :ok
   end
 
   def update
@@ -36,7 +36,7 @@ class CohortsController < ApplicationController
 
     @cohort.student_ids = student_ids
     
-    render json: {cohort: @cohort.as_json(serializer_options), students: @cohort.students.as_json(serializer_options), groups: @cohort.groups.as_json(group_serializer)}, status: :ok
+    render json: {cohort: @cohort.as_json(serializer_options), students: @cohort.students.as_json(serializer_options), groups: @cohort.groups.as_json(group_serializer), compliment: compliment_user}, status: :ok
   end
 
   def csv_upload

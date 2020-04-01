@@ -48,5 +48,6 @@ gem 'faker'
 
 gem "csv", "~> 3.1"
 
-
 gem "jwt", "~> 2.2"
+
+gem "rest-client"

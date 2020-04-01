@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+
   before_action :authorized?
 
   def encode_token(payload)
@@ -56,5 +57,11 @@ class ApplicationController < ActionController::API
     else
       ENV['SECRET_KEY_BASE']
     end
+  end
+
+  def compliment_user
+    res = RestClient.get 'https://complimentr.com/api'
+    parse_res = JSON.parse(res)
+    parse_res["compliment"]
   end
 end
