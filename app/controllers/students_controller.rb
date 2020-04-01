@@ -1,12 +1,7 @@
 class StudentsController < ApplicationController
 
   def index
-    render json: Student.all.as_json(serializer_options), status: :ok
+    render json: ApplicationSerializer.new(Student.all).as_json, status: :ok
   end
 
-  private
-
-  def serializer_options
-    { except: [:created_at, :updated_at] }
-  end
 end
