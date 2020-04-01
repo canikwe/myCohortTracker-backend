@@ -1,4 +1,3 @@
-
 class CohortsController < ApplicationController
   before_action :get_cohort, only: [:update]
 
@@ -16,11 +15,7 @@ class CohortsController < ApplicationController
     cohort = Cohort.create(cohort_params)
     cohort.students.create(cohort_student_params[:students])
 
-<<<<<<< HEAD
-    render json: {cohort: cohort.as_json(serializer_options), students: cohort.students.as_json(serializer_options), compliment: compliment_user}, status: :ok
-=======
-    render json: {cohort: ApplicationSerializer.new(cohort).as_json, students: ApplicationSerializer.new(cohort.students).as_json}, status: :ok
->>>>>>> 8b99257dcf151e9277e5d2d9f490df9102eab197
+    render json: {cohort: ApplicationSerializer.new(cohort).as_json, students: ApplicationSerializer.new(cohort.students).as_json, compliment: compliment_user}, status: :ok
   end
 
   def update
