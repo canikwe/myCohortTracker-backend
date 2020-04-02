@@ -64,7 +64,7 @@ class CohortsController < ApplicationController
         students << {first_name: row['first_name'], last_name: row['last_name']}
       end
       cohort.students.create(students)
-      render json: {cohort: ApplicationSerializer.new(cohort).as_json, students: ApplicationSerializer.new(cohort.students).as_json}, status: :ok
+      render json: {cohort: ApplicationSerializer.new(cohort).as_json, students: ApplicationSerializer.new(cohort.students).as_json, compliment: compliment_user}, status: :ok
     else
       render json: {message: cohort.errors.full_messages.as_json}, status: :not_acceptable
     end
