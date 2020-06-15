@@ -25,28 +25,7 @@ class CohortsController < ApplicationController
   def update
     
     if @cohort.update(cohort_params)
-      updated_student_ids = cohort_student_params[:students].map do |s_params|
-        
-        if s_params[:id]
-          student = Student.find(s_params[:id])
-          student.update(s_params)
-          s_params[:id]
-        else
-          student = @cohort.students.create(s_params)
-          student.id
-        end
-      end
-      
-      # delete removed students from the db
-      removed_student_ids = @cohort.student_ids - updated_student_ids
-
-      removed_student_ids.each do |s|
-        Student.destroy(s)
-      end
-
-      @cohort.student_ids = updated_student_ids
-      
-      render json: {cohort: ApplicationSerializer.new(@cohort).as_json, students: ApplicationSerializer.new(@cohort.students).as_json, groups: GroupSerializer.new(@cohort.groups).as_json, compliment: compliment_user}, status: :ok
+      render json: {cohort: ApplicationSerializer.new(@cohort).as_json, compliment: compliment_user}, status: :ok
     else
       render json: {message: @cohort.errors.full_messages.as_json}, status: :not_acceptable
     end
@@ -73,7 +52,7 @@ class CohortsController < ApplicationController
   private
 
   def cohort_params
-    params.require(:cohort).permit(:batch, :name, :batch_id)
+    params.require(:cohort).permit(:batch, :name, :batch_id, :id, :current_mod)
   end
 
   def cohort_student_params

@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :get_student, only: [:update]
+  before_action :get_student, only: [:update, :destroy]
 
   def index
     render json: ApplicationSerializer.new(Student.all).as_json, status: :ok
@@ -22,6 +22,12 @@ class StudentsController < ApplicationController
       render json: {message: student.errors.full_messages.as_json}, status: :not_acceptable
     end
   end
+
+  def destroy
+    deleted_student = @student.destroy
+    render json: ApplicationSerializer.new(deleted_student).as_json, status: :ok
+  end
+  
 
   private
 

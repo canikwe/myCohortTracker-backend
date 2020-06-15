@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # resources :cohort_activities
   resources :activities, only: [:index, :create]
   resources :groups, except: [:new, :edit, :show]
-  resources :students, only: [:index, :update, :create]
+  resources :students, except: [:new, :show, :edit]
   resources :cohorts, except: [:new, :edit, :destroy]
   post '/cohorts/csv_upload', to: 'cohorts#csv_upload'
   post '/login', to: 'auth#create'
